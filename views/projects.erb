@@ -1,5 +1,5 @@
-<h1>All Events</h1>
+<h1>All Volunteering Projects</h1>
 
-<% for event in @events %>
-    <p><a href="/events/<%= event[:id] %>"><%= event[:title] %></a></p>
+<% for project in @projects %>
+    <p><a href="/projects/<%= project[:id] %>"><%= project[:title] %></a></p>
 <% end %>

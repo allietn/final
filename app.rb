@@ -38,9 +38,9 @@ get "/projects/:id" do
     # SELECT * FROM projects WHERE id=:id
     @projects = projects_table.where(:id => params["id"]).to_a[0]
     # SELECT * FROM volunteer WHERE project_id=:id
-    @volunteer = volunteer_table.where(:event_id => params["id"]).to_a
+    @volunteer = volunteer_table.where(:project_id => params["id"]).to_a
     # SELECT COUNT(*) FROM volunteer WHERE project_id=:id AND going=1
-    @count = volunteer_table.where(:event_id => params["id"], :going => true).count
+    @count = volunteer_table.where(:project_id => params["id"], :going => true).count
     # Geocoder/Google Maps API
     results = Geocoder.search("2211 Campus Dr, Evanston, IL 60208")
     @lat_long = results.first.coordinates.join(",")
