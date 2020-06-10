@@ -22,14 +22,14 @@ DB.create_table! :rsvps do
 end
 
 # Insert initial (seed) data
-events_table = DB.from(:events)
+projects_table = DB.from(:projects)
 
-events_table.insert(title: "Bacon Burger Taco Fest", 
-                    description: "Here we go again bacon burger taco fans, another Bacon Burger Taco Fest is here!",
-                    date: "June 21",
+projects_table.insert(title: "Pizza Party for Kellogg staff", 
+                    description: "Help organize a pizza party to show Kellogg staff our appreciation.",
+                    date: "June 30th",
                     location: "Kellogg Global Hub")
 
-events_table.insert(title: "Kaleapolooza", 
-                    description: "If you're into nutrition and vitamins and stuff, this is the event for you.",
-                    date: "July 4",
-                    location: "Nowhere")
+projects_table.insert(title: "Plant flowers around Evanston", 
+                    description: "Join a group of Kellogg students to network and beautify over town.",
+                    date: "July 4th",
+                    location: "Kellogg Global Hub")
