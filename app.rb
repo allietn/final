@@ -42,7 +42,7 @@ get "/projects/:id" do
     # SELECT COUNT(*) FROM volunteer WHERE project_id=:id AND going=1
     @count = volunteer_table.where(:project_id => params["id"], :going => true).count
     # Geocoder/Google Maps API
-    results = Geocoder.search("2211 Campus Dr, Evanston, IL 60208")
+    results = Geocoder.search(@projects[:location])
     @lat_long = results.first.coordinates.join(",")
     view "project"
 end
@@ -55,11 +55,11 @@ end
 
 # Receiving end of new volunteer form
 post "/projects/:id/volunteer/create" do
-    volunteer_table.insert(:event_id => params["id"],
+    volunteer_table.insert(:project_id => params["id"],
                        :going => params["going"],
                        :user_id => @current_user[:id],
                        :comments => params["comments"])
-    @projects = events_table.where(:id => params["id"]).to_a[0]
+    @project = projects_table.where(:id => params["id"]).to_a[0]
     view "create_volunteer"
 end
 

@@ -1,12 +1,25 @@
 <div class="row">
     <div class="col-sm-9">
-        <h2>
-            <i class="far fa-calendar-alt"></i>
-            <%= @projects[:date] %>
-        </h2>
         <h1><%= @projects[:title] %></h1>
-        <p><%= @projects[:description] %></p>
-        <% for volunteer in @volunteer %>
+        <p><%= @projects[:description] %></p><br>
+        <h3>Where to meet?</h3>
+        <p><%= @projects[:location] %></p>
+        <iframe
+            width="600"
+            height="450"
+            frameborder="0" 
+            style="border:0"
+            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCtovsQvkIUWlNqtYwXY87gEd4ZSmJEhMw&q=<%= @lat_long %>&zoom=6" allowfullscreen>
+        </iframe>
+
+    </div>
+    <div class="col-sm-3">
+        <h3>When?</h3>
+        <p><%= @projects[:date] %></p>
+        <p><%= @projects[:time] %></p><br>
+        <h3>How many volunteers so far?</h3>
+        <p><%= @count %></p>
+                <% for volunteer in @volunteer %>
             <% user = @users_table.where(:id => volunteer[:user_id]).to_a[0] %>
             <div class="media">
                 <% if volunteer[:going] %>
@@ -21,15 +34,7 @@
             </div>
         <% end %>
         <p class="mt-5">
-            <a href="/projects/<%= @projects[:id] %>/volunteer/new" class="btn btn-primary">RSVP now!</a>
+            <a href="/projects/<%= @projects[:id] %>/volunteer/new" class="btn btn-primary">Sign-up now!</a>
         </p>
-    </div>
-    <div class="col-sm-3">
-        <h3>When?</h3>
-        <p><%= @projects[:date] %></p>
-        <h3>Where?</h3>
-        <p><%= @projects[:location] %></p>
-        <h3>How many guests so far?</h3>
-        <p><%= @count %></p>
     </div>
 </div>
