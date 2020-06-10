@@ -19,6 +19,7 @@ projects_table = DB.from(:projects)
 volunteer_table = DB.from(:volunteer)
 users_table = DB.from(:users)
 
+
 before do
     # SELECT * FROM users WHERE id = session[:user_id]
     @current_user = users_table.where(:id => session[:user_id]).to_a[0]
@@ -60,6 +61,20 @@ post "/projects/:id/volunteer/create" do
                        :user_id => @current_user[:id],
                        :comments => params["comments"])
     @project = projects_table.where(:id => params["id"]).to_a[0]
+
+    # read your API credentials from environment variables
+    account_sid = ENV["TWILIO_ACCOUNT_SID"]
+    auth_token = ENV["TWILIO_AUTH_TOKEN"]
+
+    # set up a client to talk to the Twilio REST API
+    client = Twilio::REST::Client.new(account_sid, auth_token)
+
+    # send the SMS from your trial Twilio number to your verified non-Twilio number
+    client.messages.create(
+    from: "+12029320806", 
+    to: "+17038672902",
+    body: "Reminder: You have a volunteering event coming up :)")
+
     view "create_volunteer"
 end
 
