@@ -61,20 +61,20 @@ post "/projects/:id/volunteer/create" do
                        :user_id => @current_user[:id],
                        :comments => params["comments"])
     @project = projects_table.where(:id => params["id"]).to_a[0]
-
+puts "1"
     # read your API credentials from environment variables
     account_sid = ENV["TWILIO_ACCOUNT_SID"]
     auth_token = ENV["TWILIO_AUTH_TOKEN"]
-
+puts "2"
     # set up a client to talk to the Twilio REST API
     client = Twilio::REST::Client.new(account_sid, auth_token)
-
+puts "3"
     # send the SMS from your trial Twilio number to your verified non-Twilio number
     client.messages.create(
     from: "+12029320806", 
     to: "+17038672902",
     body: "Reminder: You have a volunteering event coming up :)")
-
+puts "4"
     view "create_volunteer"
 end
 
